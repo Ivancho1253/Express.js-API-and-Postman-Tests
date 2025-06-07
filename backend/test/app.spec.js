@@ -94,6 +94,31 @@ describe('API', () => {
         });
     });
 
+    //Se testea el get de invitaciones con horas
+    test("GET /api/invitaciones", async () => {
+        const res = await request(app).get('/api/invitaciones');
+
+        expect(res.statusCode).toBe(200);
+        expect(Array.isArray(res.body)).toBe(true);
+    
+        expect(res.body[0]).toEqual({
+            mesa: {
+                id: 4,
+                materia: "Ing en software I",
+                titular: { nombre: "Gilda", legajo: "67890" },
+                vocal: { nombre: "Jose", legajo: "24172" },
+                fecha: "01/02/2026",
+                hora: "15:00",
+                alumnos: ["Ivan Cabrera", "Joaquin Flores"]
+            },
+            estado: "pendiente",
+            estados: {
+                "Jose": "pendiente",
+                "Gilda": "pendiente"
+            }
+        });
+    });
+
     //Se testea el get de invitaciones filtrado por profesor
     test("GET /api/invitaciones/:usuario", async () => {
         const res = await request(app).get('/api/invitaciones/Gilda');

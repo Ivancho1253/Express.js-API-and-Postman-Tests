@@ -10,14 +10,16 @@ class Mesa {
      * @param {Profesor} titular - Profesor titular de la mesa
      * @param {Profesor} vocal - Profesor vocal de la mesa
      * @param {string} fecha - Fecha de la mesa en formato YYYY-MM-DD
+     * @param {string} hora - Hora de la mesa en formato HH:MM
      * @param {string[]} alumnos - Lista de nombres de alumnos inscriptos
      */
-    constructor(id, materia, titular, vocal, fecha, alumnos = []) {
+    constructor(id, materia, titular, vocal, fecha, hora, alumnos = []) {
         this._id = id;
         this._materia = materia;
         this._titular = titular;
         this._vocal = vocal;
         this._fecha = fecha;
+        this._hora = hora; // Nueva propiedad para la hora de la mesa
         this._alumnos = alumnos;
     }
 
@@ -40,6 +42,10 @@ class Mesa {
 
     get fecha() {
         return this._fecha;
+    }
+
+    get hora() {
+        return this._hora;
     }
 
     get alumnos() {

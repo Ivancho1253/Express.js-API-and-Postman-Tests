@@ -6,7 +6,7 @@ describe("Clase Mesa", () => {
   beforeEach(() => {
     const titular = new Profesor('Figueredo');
     const vocal   = new Profesor('Gilda');
-    mesa = new Mesa(1, 'Algebra', titular, vocal, '01/01/2025', ['Ivan Cabrera', 'Joaquin Flores']);
+    mesa = new Mesa(1, 'Algebra', titular, vocal, '01/01/2025', '15:00', ['Ivan Cabrera', 'Joaquin Flores']);
   });
 
   test("propiedades iniciales", () => {
@@ -15,6 +15,7 @@ describe("Clase Mesa", () => {
     expect(mesa.titular).toBeInstanceOf(Profesor);
     expect(mesa.vocal).toBeInstanceOf(Profesor);
     expect(mesa.fecha).toBe('01/01/2025');
+    expect(mesa.hora).toBe('15:00');
     expect(mesa.alumnos).toEqual(['Ivan Cabrera', 'Joaquin Flores']);
   });
 
