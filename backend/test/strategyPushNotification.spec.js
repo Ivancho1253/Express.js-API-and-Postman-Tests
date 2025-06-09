@@ -15,15 +15,17 @@ describe('PushStrategyNotification', () => {
         'Carlos',
         'Paradigma II',
         '2025-06-20',
-        'confirmada',
-        'Gilda',
-        'vocal'
+        '14:00',
+        'presencial',
+        'Aula 101',
+        '',
+        'Gilda'
         );
 
         const mensajes = pushNotifier.obtenerMensajesPendientes('Carlos');
 
         expect(mensajes.length).toBe(1);
-        expect(mensajes[0].titulo).toBe('Confirmación de Mesa');
+        expect(mensajes[0].titulo).toBe('Mesa Confirmada ✅');
     });
 
     test('no notifica si el usuario no está suscrito', () => {
@@ -31,9 +33,11 @@ describe('PushStrategyNotification', () => {
         'Jose',
         'I.S II',
         '2025-06-20',
-        'confirmada',
-        'Figue',
-        'vocal'
+        '15:00',
+        'virtual',
+        '',
+        'https://webex.com/12345',
+        'Figue'
         );
 
         const mensajes = pushNotifier.obtenerMensajesPendientes('Jose');
@@ -48,19 +52,21 @@ describe('PushStrategyNotification', () => {
         'Jose',
         'I.S II',
         '2025-06-20',
-        'confirmada',
-        'Gilda',
-        'vocal'
+        '16:00',
+        'presencial',
+        'Aula 205',
+        '',
+        'Gilda'
         );
 
         const mensajesJose = pushNotifier.obtenerMensajesPendientes('Jose');
         const mensajesGilda = pushNotifier.obtenerMensajesPendientes('Gilda');
 
         expect(mensajesJose.length).toBe(1);
-        expect(mensajesJose[0].cuerpo).toContain('fue confirmada.');
+        expect(mensajesJose[0].cuerpo).toContain('confirmada para');
 
         expect(mensajesGilda.length).toBe(1);
-        expect(mensajesGilda[0].cuerpo).toContain('fue confirmada.');
+        expect(mensajesGilda[0].cuerpo).toContain('confirmada para');
     });
 
     test('limpia los mensajes después de obtenerlos', () => {
@@ -70,9 +76,11 @@ describe('PushStrategyNotification', () => {
         'Carlos',
         'Paradigmas II',
         '2025-06-20',
-        'confirmada',
-        'Jose',
-        'vocal'
+        '17:00',
+        'virtual',
+        '',
+        'https://webex.com/67890',
+        'Jose'
         );
 
         const mensajes1 = pushNotifier.obtenerMensajesPendientes('Carlos');
@@ -89,9 +97,11 @@ describe('PushStrategyNotification', () => {
           'Gilda',
           'I.S I',
           '2025-06-21',
-          'confirmada',
-          'Carlos',
-          'vocal'
+          '18:00',
+          'presencial',
+          'Aula 301',
+          '',
+          'Carlos'
         );
     
         expect(pushNotifier.obtenerMensajesPendientes('Gilda').length).toBe(1);

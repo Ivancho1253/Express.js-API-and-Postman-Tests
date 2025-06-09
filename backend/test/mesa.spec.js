@@ -38,6 +38,10 @@ describe("Clase Mesa", () => {
       titular: mesa.titular,
       vocal: mesa.vocal,
       fecha: mesa.fecha,
+      hora: mesa.hora,
+      tipo: mesa.tipo,
+      aula: mesa.aula,
+      linkWebex: mesa.linkWebex,
       alumnos: mesa.alumnos
     });
   });

@@ -32,6 +32,10 @@ describe('NotificadorPush', () => {
         const mesa = {
             materia: 'Economía',
             fecha: '2025-07-01',
+            hora: '14:00',
+            tipo: 'presencial',
+            aula: 'Aula 101',
+            linkWebex: '',
             titular: { nombre: 'Gilda' },
             vocal: { nombre: 'Carlos' },
         };
@@ -39,12 +43,14 @@ describe('NotificadorPush', () => {
         notificador.notificar(mesa);
 
         expect(notificador.estrategiaPush.notificar).toHaveBeenCalledWith(
-            'Gilda y Carlos',
+            'Gilda',
             'Economía',
             '2025-07-01',
-            'confirmada',
-            'Carlos',
-            'vocal'
+            '14:00',
+            'presencial',
+            'Aula 101',
+            '',
+            'Carlos'
         );
     });
 
