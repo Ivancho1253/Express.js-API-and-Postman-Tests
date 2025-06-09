@@ -2,8 +2,8 @@
     <header class="header">
       <h1 class="header-title">Sistema de Mesas de Examen UCP</h1>
       <button @click="toggleTheme" class="theme-toggle-btn">
-        <span class="theme-icon">{{ darkMode ? '☀️' : '🌙' }}</span>
-        <span class="theme-text">{{ darkMode ? 'Modo claro' : 'Modo oscuro' }}</span>
+        <span class="theme-icon">{{ darkMode ? '🌙' : '☀️' }}</span>
+        <span class="theme-text">{{ darkMode ? 'Modo oscuro' : 'Modo claro' }}</span>
       </button>
     </header>
   </template>
