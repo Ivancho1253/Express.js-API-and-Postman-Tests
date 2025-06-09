@@ -441,7 +441,7 @@ export default {
 }
 
 .dashboard-logo {
-  max-width: 120px;
+  max-width: 500px;
   height: auto;
   margin-bottom: 1rem;
 }

@@ -31,12 +31,12 @@ module.exports = defineConfig({
                 ],
                 icons: [
                   {
-                        src: 'img/icons/android-chrome-192x192.png',
+                        src: 'img/images.png',
                         sizes: '192x192',
                         type: 'image/png',
                     },  
                   {
-                        src: 'img/icons/android-chrome-512x512.png',
+                        src: 'img/images.png',
                         sizes: '512x512',
                         type: 'image/png',
                     }
