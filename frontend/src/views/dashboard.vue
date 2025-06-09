@@ -18,7 +18,10 @@
           <div v-for="mesa in mesasAsignadas" :key="mesa.id" class="mesa-card">
             <div class="mesa-header">
               <h4 class="mesa-materia">{{ mesa.materia }}</h4>
-              <span class="mesa-fecha">{{ mesa.fecha }}</span>
+              <div class="fecha-hora">
+                <span class="mesa-fecha">{{ mesa.fecha }}</span>
+                <span class="mesa-hora">{{ mesa.hora }}</span>
+              </div>
             </div>
             
             <div class="mesa-info">
@@ -32,6 +35,30 @@
               <div class="info-row">
                 <span class="info-label">{{ obtenerRol(mesa) === 'titular' ? 'Vocal' : 'Titular' }}:</span>
                 <span class="info-value">{{ obtenerOtroNombre(mesa) }}</span>
+              </div>
+
+              <div class="info-row">
+                <span class="info-label">Modalidad:</span>
+                <span class="info-value tipo-badge" :class="mesa.tipo">
+                  <i class="modalidad-icon">{{ mesa.tipo === 'virtual' ? '💻' : '🏫' }}</i>
+                  {{ mesa.tipo === 'virtual' ? 'Virtual' : 'Presencial' }}
+                </span>
+              </div>
+
+              <div v-if="mesa.tipo === 'presencial' && mesa.aula" class="info-row">
+                <span class="info-label">Aula:</span>
+                <span class="info-value aula-info">
+                  <i class="aula-icon">📍</i>
+                  {{ mesa.aula }}
+                </span>
+              </div>
+
+              <div v-if="mesa.tipo === 'virtual' && mesa.linkWebex" class="info-row">
+                <span class="info-label">Webex:</span>
+                <a :href="mesa.linkWebex" target="_blank" class="webex-link">
+                  <i class="webex-icon">🔗</i>
+                  Unirse a la mesa virtual
+                </a>
               </div>
               
               <div class="info-row">
@@ -70,7 +97,10 @@
           <div v-for="inv in invitaciones" :key="inv.mesa.id" class="invitacion-card">
             <div class="invitacion-header">
               <h4 class="invitacion-materia">{{ inv.mesa.materia }}</h4>
-              <span class="invitacion-fecha">{{ inv.mesa.fecha }}</span>
+              <div class="fecha-hora">
+                <span class="invitacion-fecha">{{ inv.mesa.fecha }}</span>
+                <span class="invitacion-hora">{{ inv.mesa.hora }}</span>
+              </div>
             </div>
             
             <div class="invitacion-info">
@@ -86,6 +116,30 @@
                 <span class="info-value">
                   {{ inv.mesa.titular.nombre === usuarioActual.nombre ? inv.mesa.vocal.nombre : inv.mesa.titular.nombre }}
                 </span>
+              </div>
+
+              <div class="info-row">
+                <span class="info-label">Modalidad:</span>
+                <span class="info-value tipo-badge" :class="inv.mesa.tipo">
+                  <i class="modalidad-icon">{{ inv.mesa.tipo === 'virtual' ? '💻' : '🏫' }}</i>
+                  {{ inv.mesa.tipo === 'virtual' ? 'Virtual' : 'Presencial' }}
+                </span>
+              </div>
+
+              <div v-if="inv.mesa.tipo === 'presencial' && inv.mesa.aula" class="info-row">
+                <span class="info-label">Aula:</span>
+                <span class="info-value aula-info">
+                  <i class="aula-icon">📍</i>
+                  {{ inv.mesa.aula }}
+                </span>
+              </div>
+
+              <div v-if="inv.mesa.tipo === 'virtual' && inv.mesa.linkWebex" class="info-row">
+                <span class="info-label">Webex:</span>
+                <a :href="inv.mesa.linkWebex" target="_blank" class="webex-link">
+                  <i class="webex-icon">🔗</i>
+                  Unirse a la mesa virtual
+                </a>
               </div>
               
               <div class="info-row">
@@ -448,6 +502,14 @@ export default {
   flex: 1;
 }
 
+/* Fecha y Hora */
+.fecha-hora {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
 .mesa-fecha,
 .invitacion-fecha {
   background: var(--primary-color);
@@ -456,6 +518,17 @@ export default {
   border-radius: 20px;
   font-size: 0.875rem;
   font-weight: 500;
+  white-space: nowrap;
+}
+
+.mesa-hora,
+.invitacion-hora {
+  background: #6c757d;
+  color: white;
+  padding: 0.375rem 1rem;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: 600;
   white-space: nowrap;
 }
 
@@ -522,6 +595,71 @@ export default {
 .status-badge.pending {
   background: #fff3cd;
   color: #856404;
+}
+
+/* Badges de tipo de mesa */
+.tipo-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.tipo-badge.virtual {
+  background: #e8f5e8;
+  color: #2e7d32;
+}
+
+.tipo-badge.presencial {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.modalidad-icon {
+  font-size: 0.875rem;
+}
+
+/* Información de aula */
+.aula-info {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 500;
+}
+
+.aula-icon {
+  font-size: 0.875rem;
+  color: #f57c00;
+}
+
+/* Link de Webex */
+.webex-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #1976d2;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #1976d2;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  background: #f8fffe;
+}
+
+.webex-link:hover {
+  background: #1976d2;
+  color: white;
+  text-decoration: none;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.3);
+}
+
+.webex-icon {
+  font-size: 1rem;
 }
 
 /* Sección de Alumnos */
@@ -648,6 +786,10 @@ export default {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
+  }
+
+  .fecha-hora {
+    align-items: flex-start;
   }
   
   .info-row {

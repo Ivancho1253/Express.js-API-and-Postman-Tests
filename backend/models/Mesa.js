@@ -12,15 +12,21 @@ class Mesa {
      * @param {string} fecha - Fecha de la mesa en formato YYYY-MM-DD
      * @param {string} hora - Hora de la mesa en formato HH:MM
      * @param {string[]} alumnos - Lista de nombres de alumnos inscriptos
+     * @param {string} tipo - Tipo de mesa: 'virtual' o 'presencial'
+     * @param {string} aula - Aula donde se realiza la mesa (solo para presencial)
+     * @param {string} linkWebex - Link de Webex para la mesa (solo para virtual)
      */
-    constructor(id, materia, titular, vocal, fecha, hora, alumnos = []) {
+    constructor(id, materia, titular, vocal, fecha, hora, alumnos = [], tipo = 'presencial', aula = '', linkWebex = '') {
         this._id = id;
         this._materia = materia;
         this._titular = titular;
         this._vocal = vocal;
         this._fecha = fecha;
-        this._hora = hora; // Nueva propiedad para la hora de la mesa
+        this._hora = hora;
         this._alumnos = alumnos;
+        this._tipo = tipo; // 'virtual' o 'presencial'
+        this._aula = aula; // Solo para mesas presenciales
+        this._linkWebex = linkWebex; // Solo para mesas virtuales
     }
 
     // Getters para acceder a las propiedades privadas
@@ -52,6 +58,27 @@ class Mesa {
         return this._alumnos;
     }
 
+    get tipo() {
+        return this._tipo;
+    }
+
+    get aula() {
+        return this._aula;
+    }
+
+    get linkWebex() {
+        return this._linkWebex;
+    }
+
+    // Setters para modificar propiedades después de la creación
+    set aula(nuevaAula) {
+        this._aula = nuevaAula;
+    }
+
+    set linkWebex(nuevoLink) {
+        this._linkWebex = nuevoLink;
+    }
+
     /**
      * Agrega un alumno a la mesa si no está ya inscripto
      * @param {string} nombre - Nombre del alumno a agregar
@@ -73,7 +100,11 @@ class Mesa {
             titular: this._titular,
             vocal: this._vocal,
             fecha: this._fecha,
-            alumnos: this._alumnos
+            hora: this._hora,
+            alumnos: this._alumnos,
+            tipo: this._tipo,
+            aula: this._aula,
+            linkWebex: this._linkWebex
         };
     }
 }
