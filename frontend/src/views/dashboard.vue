@@ -530,24 +530,36 @@ export default {
 
 .mesa-fecha,
 .invitacion-fecha {
-  background: var(--primary-color);
+  background: #007aff;
   color: white;
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
   white-space: nowrap;
+}
+
+.dark .mesa-fecha,
+.dark .invitacion-fecha {
+  background: #4a9eff;
+  color: white;
 }
 
 .mesa-hora,
 .invitacion-hora {
+  background: #343a40;
+  color: white;
+  padding: 0.5rem 1.2rem;
+  border-radius: 20px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.dark .mesa-hora,
+.dark .invitacion-hora {
   background: #6c757d;
   color: white;
-  padding: 0.375rem 1rem;
-  border-radius: 20px;
-  font-size: 1rem;
-  font-weight: 600;
-  white-space: nowrap;
 }
 
 /* Información de Mesa/Invitación */

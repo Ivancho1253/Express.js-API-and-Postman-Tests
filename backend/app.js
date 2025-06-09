@@ -130,9 +130,13 @@ app.post('/api/invitaciones/aceptar', async (req, res) => {
           id: invitacion.mesa.id,
           materia: invitacion.mesa.materia,
           fecha: invitacion.mesa.fecha,
+          hora: invitacion.mesa.hora,
           titular: invitacion.mesa.titular,
           vocal: invitacion.mesa.vocal,
           alumnos: invitacion.mesa.alumnos,
+          tipo: invitacion.mesa.tipo,
+          aula: invitacion.mesa.aula,
+          linkWebex: invitacion.mesa.linkWebex,
           _estados: invitacion.mesa._estados
         });
         // Marcar como confirmada
