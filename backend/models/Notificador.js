@@ -64,12 +64,12 @@ class Notificador {
    * @param {Mesa} mesa - Mesa de examen para la cual enviar notificaciones
    */
   notificar(mesa) {
-    const { materia, fecha, titular, vocal } = mesa;
+    const { materia, fecha, hora, tipo, aula, linkWebex, titular, vocal } = mesa;
 
     // Mensajes para los profesores (email) - usando Observer
     const mensajesEmail = [
-      this._crearMensaje(titular.nombre, vocal.nombre, 'Titular', 'Vocal', materia, fecha),
-      this._crearMensaje(vocal.nombre, titular.nombre, 'Vocal', 'Titular', materia, fecha)
+      this._crearMensaje(titular.nombre, vocal.nombre, 'Titular', 'Vocal', materia, fecha, hora, tipo, aula, linkWebex),
+      this._crearMensaje(vocal.nombre, titular.nombre, 'Vocal', 'Titular', materia, fecha, hora, tipo, aula, linkWebex)
     ];
 
     // Enviar notificaciones por email usando Observer
@@ -88,13 +88,21 @@ class Notificador {
    * @param {string} rolOtro - Rol del otro profesor
    * @param {string} materia - Nombre de la materia
    * @param {string} fecha - Fecha de la mesa
+   * @param {string} hora - Hora de la mesa
+   * @param {string} tipo - Tipo de mesa (virtual/presencial)
+   * @param {string} aula - Aula (si es presencial)
+   * @param {string} linkWebex - Link de Webex (si es virtual)
    * @returns {Object} Mensaje formateado
    */
-  _crearMensaje(receptor, otroProfesor, rol, rolOtro, materia, fecha) {
+  _crearMensaje(receptor, otroProfesor, rol, rolOtro, materia, fecha, hora, tipo, aula, linkWebex) {
     return {
       receptor,
       materia,
       fecha,
+      hora,
+      tipo,
+      aula,
+      linkWebex,
       rol,
       otroProfesor,
       rolOtro,

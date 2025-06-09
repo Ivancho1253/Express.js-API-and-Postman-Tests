@@ -29,7 +29,7 @@ class StrategyPushNotification extends StrategyNotification {
     // Construir información adicional según el tipo de mesa
     let infoAdicional = '';
     if (tipo === 'virtual' && linkWebex) {
-      infoAdicional = ` Modalidad: Virtual. Link: ${linkWebex}`;
+      infoAdicional = ` Modalidad: Virtual.`;
     } else if (tipo === 'presencial' && aula) {
       infoAdicional = ` Modalidad: Presencial en ${aula}`;
     } else {
