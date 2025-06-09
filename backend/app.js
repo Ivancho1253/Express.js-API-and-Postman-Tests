@@ -92,8 +92,7 @@ app.get('/api/invitaciones/:usuario', (req, res) => {
   const usuario = req.params.usuario;
   const invitadas = invitaciones
     .filter(i =>
-      (i.mesa.titular.nombre === usuario || i.mesa.vocal.nombre === usuario) &&
-      i.estado !== 'confirmada'
+      (i.mesa.titular.nombre === usuario || i.mesa.vocal.nombre === usuario)
     )
     .map(i => i.toJSON());
   res.json(invitadas);
@@ -139,8 +138,6 @@ app.post('/api/invitaciones/aceptar', async (req, res) => {
           linkWebex: invitacion.mesa.linkWebex,
           _estados: invitacion.mesa._estados
         });
-        // Marcar como confirmada
-        invitacion.estado = 'confirmada';
 
         // Notificar por email usando el notificador original
         notificador.notificar(invitacion.mesa);
@@ -149,6 +146,13 @@ app.post('/api/invitaciones/aceptar', async (req, res) => {
         notificadorPush.notificar(invitacion.mesa);
         
         console.log('Mesa agregada:', invitacion.mesa.id);
+      }
+
+      // Eliminar la invitación del array ya que la mesa fue confirmada
+      const indiceInvitacion = invitaciones.findIndex(i => i.mesa.id === id);
+      if (indiceInvitacion !== -1) {
+        invitaciones.splice(indiceInvitacion, 1);
+        console.log('Invitación eliminada para mesa ID:', id);
       }
     }
 
