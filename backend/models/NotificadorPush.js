@@ -31,16 +31,18 @@ class NotificadorPush {
    * @param {Mesa} mesa - Mesa de examen para la cual enviar notificaciones
    */
   notificar(mesa) {
-    const { materia, titular, vocal } = mesa;
+    const { materia, titular, vocal, fecha, hora, tipo, aula, linkWebex } = mesa;
     
     // Enviamos la notificación push usando la estrategia
     this.estrategiaPush.notificar(
-      `${titular.nombre} y ${vocal.nombre}`,
+      titular.nombre,
       materia,
-      mesa.fecha,
-      'confirmada',
-      vocal.nombre,
-      'vocal'
+      fecha,
+      hora,
+      tipo,
+      aula,
+      linkWebex,
+      vocal.nombre
     );
   }
 

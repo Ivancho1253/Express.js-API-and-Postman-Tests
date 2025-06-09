@@ -16,45 +16,54 @@ class StrategyPushNotification extends StrategyNotification {
 
   /**
    * Envía una notificación push a los usuarios correspondientes
-   * @param {string} nombreProfesor - Nombre del profesor titular
+   * @param {string} nombreTitular - Nombre del profesor titular
    * @param {string} materia - Nombre de la materia
    * @param {string} fecha - Fecha de la mesa
-   * @param {string} rol - Rol en la mesa ('confirmada' para enviar)
-   * @param {string} otroProfesor - Nombre del profesor vocal
-   * @param {string} rolOtroProfesor - Rol del otro profesor
+   * @param {string} hora - Hora de la mesa
+   * @param {string} tipo - Tipo de mesa (virtual/presencial)
+   * @param {string} aula - Aula (si es presencial)
+   * @param {string} linkWebex - Link de Webex (si es virtual)
+   * @param {string} nombreVocal - Nombre del profesor vocal
    */
-  notificar(nombreProfesor, materia, fecha, rol, otroProfesor, rolOtroProfesor) {
-    // Solo enviamos notificación push cuando ambos profesores han aceptado
-    if (rol === 'confirmada') {
-      // Creamos mensajes personalizados para cada profesor
-      const mensajeTitular = {
-        titulo: 'Confirmación de Mesa',
-        cuerpo: `La invitación para la mesa de ${materia} fue confirmada. Para la fecha ${fecha}.`,
-        timestamp: Date.now()
-      };
+  notificar(nombreTitular, materia, fecha, hora, tipo, aula, linkWebex, nombreVocal) {
+    // Construir información adicional según el tipo de mesa
+    let infoAdicional = '';
+    if (tipo === 'virtual' && linkWebex) {
+      infoAdicional = ` Modalidad: Virtual. Link: ${linkWebex}`;
+    } else if (tipo === 'presencial' && aula) {
+      infoAdicional = ` Modalidad: Presencial en ${aula}`;
+    } else {
+      infoAdicional = ` Modalidad: ${tipo === 'virtual' ? 'Virtual' : 'Presencial'}`;
+    }
 
-      const mensajeVocal = {
-        titulo: 'Confirmación de Mesa',
-        cuerpo: `La invitación para la mesa de ${materia} fue confirmada. Para la fecha ${fecha}.`,
-        timestamp: Date.now()
-      };
-      
-      // Guardamos los mensajes para cada profesor
-      if (this.subscriptions.has(nombreProfesor)) {
-        if (!this.mensajesPendientes.has(nombreProfesor)) {
-          this.mensajesPendientes.set(nombreProfesor, []);
-        }
-        this.mensajesPendientes.get(nombreProfesor).push(mensajeTitular);
-        console.log('Mensaje push guardado para titular:', nombreProfesor);
-      }
+    // Creamos mensajes personalizados para cada profesor
+    const mensajeTitular = {
+      titulo: 'Mesa Confirmada ✅',
+      cuerpo: `Mesa de ${materia} confirmada para ${fecha} a las ${hora}.${infoAdicional}`,
+      timestamp: Date.now()
+    };
 
-      if (this.subscriptions.has(otroProfesor)) {
-        if (!this.mensajesPendientes.has(otroProfesor)) {
-          this.mensajesPendientes.set(otroProfesor, []);
-        }
-        this.mensajesPendientes.get(otroProfesor).push(mensajeVocal);
-        console.log('Mensaje push guardado para vocal:', otroProfesor);
+    const mensajeVocal = {
+      titulo: 'Mesa Confirmada ✅',
+      cuerpo: `Mesa de ${materia} confirmada para ${fecha} a las ${hora}.${infoAdicional}`,
+      timestamp: Date.now()
+    };
+    
+    // Guardamos los mensajes para cada profesor
+    if (this.subscriptions.has(nombreTitular)) {
+      if (!this.mensajesPendientes.has(nombreTitular)) {
+        this.mensajesPendientes.set(nombreTitular, []);
       }
+      this.mensajesPendientes.get(nombreTitular).push(mensajeTitular);
+      console.log('Mensaje push guardado para titular:', nombreTitular);
+    }
+
+    if (this.subscriptions.has(nombreVocal)) {
+      if (!this.mensajesPendientes.has(nombreVocal)) {
+        this.mensajesPendientes.set(nombreVocal, []);
+      }
+      this.mensajesPendientes.get(nombreVocal).push(mensajeVocal);
+      console.log('Mensaje push guardado para vocal:', nombreVocal);
     }
   }
 
