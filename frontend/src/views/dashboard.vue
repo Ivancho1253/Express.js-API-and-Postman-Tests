@@ -397,10 +397,28 @@ export default {
   --warning-color: #ffc107;
   --bg-color: #f8f9fa;
   --card-bg: white;
+  --card-bg-secondary: #fafbfc;
   --text-primary: #333333;
   --text-secondary: #666666;
   --border-color: #e0e0e0;
   --shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  --border-radius: 12px;
+}
+
+/* Tema oscuro */
+.dark {
+  --primary-color: #4a9eff;
+  --primary-hover: #007aff;
+  --success-color: #34d058;
+  --danger-color: #f85149;
+  --warning-color: #ffc107;
+  --bg-color: #0d1117;
+  --card-bg: #161b22;
+  --card-bg-secondary: #21262d;
+  --text-primary: #f0f6fc;
+  --text-secondary: #8b949e;
+  --border-color: #30363d;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
   --border-radius: 12px;
 }
 
@@ -470,7 +488,7 @@ export default {
 /* Tarjetas de Mesa e Invitación */
 .mesa-card,
 .invitacion-card {
-  background: #fafbfc;
+  background: var(--card-bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 1.5rem;
@@ -513,7 +531,7 @@ export default {
 .mesa-fecha,
 .invitacion-fecha {
   background: var(--primary-color);
-  color: rgb(0, 0, 0);
+  color: white;
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
   font-size: 0.875rem;
@@ -570,9 +588,19 @@ export default {
   color: #1976d2;
 }
 
+.dark .role-badge.titular {
+  background: #1e3a8a;
+  color: #93c5fd;
+}
+
 .role-badge.vocal {
   background: #f3e5f5;
   color: #7b1fa2;
+}
+
+.dark .role-badge.vocal {
+  background: #581c87;
+  color: #d8b4fe;
 }
 
 .status-badge {
@@ -587,14 +615,29 @@ export default {
   color: #155724;
 }
 
+.dark .status-badge.accepted {
+  background: #1b5e20;
+  color: #81c784;
+}
+
 .status-badge.rejected {
   background: #f8d7da;
   color: #721c24;
 }
 
+.dark .status-badge.rejected {
+  background: #b71c1c;
+  color: #ef5350;
+}
+
 .status-badge.pending {
   background: #fff3cd;
   color: #856404;
+}
+
+.dark .status-badge.pending {
+  background: #ff8f00;
+  color: #1a1a1a;
 }
 
 /* Badges de tipo de mesa */
@@ -613,9 +656,19 @@ export default {
   color: #2e7d32;
 }
 
+.dark .tipo-badge.virtual {
+  background: #1b4332;
+  color: #52b788;
+}
+
 .tipo-badge.presencial {
   background: #fff3e0;
   color: #f57c00;
+}
+
+.dark .tipo-badge.presencial {
+  background: #3c2e1f;
+  color: #ffb74d;
 }
 
 .modalidad-icon {
@@ -640,22 +693,22 @@ export default {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #1976d2;
+  color: var(--primary-color);
   text-decoration: none;
   font-weight: 500;
   padding: 0.5rem 0.75rem;
-  border: 1px solid #1976d2;
+  border: 1px solid var(--primary-color);
   border-radius: 6px;
   transition: all 0.2s ease;
-  background: #f8fffe;
+  background: var(--card-bg);
 }
 
 .webex-link:hover {
-  background: #1976d2;
+  background: var(--primary-color);
   color: white;
   text-decoration: none;
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.3);
+  box-shadow: 0 2px 8px rgba(var(--primary-color), 0.3);
 }
 
 .webex-icon {
@@ -684,7 +737,7 @@ export default {
 }
 
 .alumno-tag {
-  background: #f8f9fa;
+  background: var(--card-bg);
   border: 1px solid var(--border-color);
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
