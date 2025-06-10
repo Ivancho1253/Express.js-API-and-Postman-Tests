@@ -126,6 +126,3 @@ El sistema incluye usuarios predefinidos para pruebas:
 
 Este proyecto está bajo la Licencia ISC.
 
-## Soporte
-
-Si encuentras algún problema o tienes alguna sugerencia, por favor abre un issue en el repositorio.
